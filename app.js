@@ -6,6 +6,14 @@ const resultadoContenedor = document.querySelectorAll(".ocultar");
 const copiarBoton = document.getElementById("boton_copiar");
 const contenedorTexto = document.getElementById("contenedor_texto");
 
+function validarEntrada(texto) {
+    if (texto.trim() === "") {
+        swal("Ooops!", "Debes ingresar un texto", "warning");
+        return false;
+    }
+    return true;
+}
+
 const matrizCodigo = [
     ["e", "enter"],
     ["i", "imes"],
@@ -14,12 +22,18 @@ const matrizCodigo = [
     ["u", "ufat"]
 ];
 
-function validarEntrada(texto) {
-    if (texto.trim() === "") {
-        swal("Ooops!", "Debes ingresar un texto", "warning");
-        return false;
-    }
-    return true;
+function encriptar(texto) {
+    matrizCodigo.forEach(([elemento, encriptado]) => {
+        texto = texto.replaceAll(elemento, encriptado);
+    });
+    return texto;
+}
+
+function desencriptar(texto) {
+    matrizCodigo.forEach(([elemento, encriptado]) => {
+        texto = texto.replaceAll(encriptado, elemento);
+    });
+    return texto;
 }
 
 function encriptarBoton() {
@@ -50,20 +64,6 @@ function desencriptarBoton() {
 
     contenedorTexto.value = "";
     copiarBoton.innerText = "Copiar";
-}
-
-function encriptar(texto) {
-    matrizCodigo.forEach(([elemento, encriptado]) => {
-        texto = texto.replaceAll(elemento, encriptado);
-    });
-    return texto;
-}
-
-function desencriptar(texto) {
-    matrizCodigo.forEach(([elemento, encriptado]) => {
-        texto = texto.replaceAll(encriptado, elemento);
-    });
-    return texto;
 }
 
 function ocultar() {
